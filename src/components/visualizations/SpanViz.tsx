@@ -70,7 +70,7 @@ export function SpanViz() {
         {showSecondVector && !areCollinear && (
           <Plot.Inequality
             x={{ ">=": -100, "<=": 100 }}
-            y={{ ">=": (x: number) => -100, "<=": (x: number) => 100 }}
+            y={{ ">=": (_x: number) => -100, "<=": (_x: number) => 100 }}
             color={Theme.green}
           />
         )}

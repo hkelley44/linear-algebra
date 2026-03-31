@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 /**
  * Content type system for the linear algebra course.
  *

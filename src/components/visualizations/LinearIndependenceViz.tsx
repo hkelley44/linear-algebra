@@ -27,22 +27,12 @@ export function LinearIndependenceViz() {
 
   // Check if v3 is in span(v1, v2) — solve v3 = a*v1 + b*v2
   const det = v1.point[0] * v2.point[1] - v1.point[1] * v2.point[0];
-  let isV3Dependent = false;
   let a = 0, b = 0;
 
   if (Math.abs(det) > 0.01) {
     a = (v3.point[0] * v2.point[1] - v3.point[1] * v2.point[0]) / det;
     b = (v1.point[0] * v3.point[1] - v1.point[1] * v3.point[0]) / det;
-    // v3 is "in the span" always for R^2 with independent v1, v2
-    // But visually show the decomposition
-    isV3Dependent = true;
-  } else {
-    // v1 and v2 are collinear — check if v3 is also collinear
-    const cross13 = v1.point[0] * v3.point[1] - v1.point[1] * v3.point[0];
-    isV3Dependent = Math.abs(cross13) < 0.2;
   }
-
-  const allCollinear = cross12Near;
 
   return (
     <div>
