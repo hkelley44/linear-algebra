@@ -187,9 +187,17 @@ function FreeResponseCard({
   const [showHint, setShowHint] = useState(false);
 
   const normalized = answer.trim().toLowerCase();
-  const isCorrect = problem.acceptedAnswers.some(
-    (a) => a.toLowerCase() === normalized
-  );
+  const isCorrect = problem.acceptedAnswers.some((a) => {
+    // String comparison first
+    if (a.toLowerCase() === normalized) return true;
+    // Numeric comparison: if both parse as finite numbers, compare numerically
+    const userNum = parseFloat(normalized);
+    const acceptedNum = parseFloat(a);
+    if (Number.isFinite(userNum) && Number.isFinite(acceptedNum)) {
+      return userNum === acceptedNum;
+    }
+    return false;
+  });
 
   const handleSubmit = () => {
     if (answer.trim()) setSubmitted(true);

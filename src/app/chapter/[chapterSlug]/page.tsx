@@ -18,9 +18,15 @@ export default async function ChapterPage({
   if (!chapter || chapter.sections.length === 0) {
     redirect("/");
   }
-  const firstSection = chapter.sections[0];
-  const firstTopic = firstSection.topics[0];
+
+  // Find the first section that actually has topics
+  const firstSectionWithTopics = chapter.sections.find(
+    (s) => s.topics.length > 0
+  );
+  if (!firstSectionWithTopics) {
+    redirect("/");
+  }
   redirect(
-    `/chapter/${chapterSlug}/${firstSection.slug}/${firstTopic?.slug ?? ""}`
+    `/chapter/${chapterSlug}/${firstSectionWithTopics.slug}/${firstSectionWithTopics.topics[0].slug}`
   );
 }

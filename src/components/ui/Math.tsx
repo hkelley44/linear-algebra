@@ -21,7 +21,6 @@ function renderKatex(latex: string, displayMode: boolean): string {
       displayMode,
       throwOnError: false,
       strict: false,
-      trust: true,
       macros: {
         "\\R": "\\mathbb{R}",
         "\\C": "\\mathbb{C}",
@@ -140,7 +139,20 @@ function parseTextWithMath(text: string): Segment[] {
       if (inlineIdx > 0) {
         segments.push({ type: "text", content: remaining.slice(0, inlineIdx) });
       }
-      const closeIdx = remaining.indexOf("$", inlineIdx + 1);
+      // Find a closing $ that isn't the start of a $$ pair
+      let closeIdx = -1;
+      let searchFrom = inlineIdx + 1;
+      while (searchFrom < remaining.length) {
+        const candidate = remaining.indexOf("$", searchFrom);
+        if (candidate === -1) break;
+        // Skip if this $ is followed by another $ (start of $$)
+        if (remaining[candidate + 1] === "$") {
+          searchFrom = candidate + 2;
+          continue;
+        }
+        closeIdx = candidate;
+        break;
+      }
       if (closeIdx === -1) {
         segments.push({ type: "text", content: remaining.slice(inlineIdx) });
         break;

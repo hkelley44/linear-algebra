@@ -12,7 +12,7 @@ export function ContentRenderer({ blocks }: { blocks: ContentBlock[] }) {
   return (
     <div className="space-y-6">
       {blocks.map((block, i) => (
-        <BlockRenderer key={i} block={block} />
+        <BlockRenderer key={`${block.type}-${i}`} block={block} />
       ))}
     </div>
   );

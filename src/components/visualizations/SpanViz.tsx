@@ -8,7 +8,7 @@ import {
   useMovablePoint,
   Theme,
   Text,
-  Plot,
+  Polygon,
   Line,
 } from "mafs";
 
@@ -68,10 +68,10 @@ export function SpanViz() {
         )}
 
         {showSecondVector && !areCollinear && (
-          <Plot.Inequality
-            x={{ ">=": -100, "<=": 100 }}
-            y={{ ">=": (_x: number) => -100, "<=": (_x: number) => 100 }}
+          <Polygon
+            points={[[-6, -6], [-6, 6], [6, 6], [6, -6]]}
             color={Theme.green}
+            fillOpacity={0.15}
           />
         )}
 

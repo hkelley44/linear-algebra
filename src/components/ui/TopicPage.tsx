@@ -56,7 +56,7 @@ export function TopicPage({ chapter, section, topic, prev, next }: TopicPageProp
             <div className="space-y-6">
               {topic.content.examples.map((ex, i) => (
                 <div
-                  key={i}
+                  key={`example-${i}`}
                   className="math-block math-block-example"
                 >
                   <div className="font-sans text-sm font-semibold text-green-700 mb-1">

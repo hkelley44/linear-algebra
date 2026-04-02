@@ -27,23 +27,45 @@ export default function Home() {
               {chapter.description}
             </p>
             <div className="grid gap-2">
-              {chapter.sections.map((section) => (
-                <Link
-                  key={section.id}
-                  href={`/chapter/${chapter.slug}/${section.slug}/${section.topics[0]?.slug ?? ""}`}
-                  className="flex items-baseline gap-3 px-4 py-3 rounded-lg border border-stone-200 hover:border-blue-300 hover:bg-blue-50/50 transition-colors font-sans"
-                >
-                  <span className="text-sm text-stone-400 font-medium">
-                    {section.id}
-                  </span>
-                  <span className="text-sm text-stone-700 font-medium">
-                    {section.title}
-                  </span>
-                  <span className="ml-auto text-xs text-stone-400">
-                    {section.topics.length} topic{section.topics.length !== 1 ? "s" : ""}
-                  </span>
-                </Link>
-              ))}
+              {chapter.sections.map((section) => {
+                const firstTopic = section.topics[0];
+                if (!firstTopic) {
+                  // Section with no topics yet -- render as non-clickable
+                  return (
+                    <div
+                      key={section.id}
+                      className="flex items-baseline gap-3 px-4 py-3 rounded-lg border border-stone-200 bg-stone-50 font-sans opacity-60"
+                    >
+                      <span className="text-sm text-stone-400 font-medium">
+                        {section.id}
+                      </span>
+                      <span className="text-sm text-stone-500 font-medium">
+                        {section.title}
+                      </span>
+                      <span className="ml-auto text-xs text-stone-400">
+                        Coming soon
+                      </span>
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={section.id}
+                    href={`/chapter/${chapter.slug}/${section.slug}/${firstTopic.slug}`}
+                    className="flex items-baseline gap-3 px-4 py-3 rounded-lg border border-stone-200 hover:border-blue-300 hover:bg-blue-50/50 transition-colors font-sans"
+                  >
+                    <span className="text-sm text-stone-400 font-medium">
+                      {section.id}
+                    </span>
+                    <span className="text-sm text-stone-700 font-medium">
+                      {section.title}
+                    </span>
+                    <span className="ml-auto text-xs text-stone-400">
+                      {section.topics.length} topic{section.topics.length !== 1 ? "s" : ""}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </section>
         ))}

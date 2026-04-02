@@ -8,7 +8,7 @@ import {
   Theme,
   Text,
   Line,
-  Plot,
+  Polygon,
   useMovablePoint,
 } from "mafs";
 
@@ -122,10 +122,10 @@ export function NullSpaceRangeViz() {
           />
         )}
         {isZeroMap && (
-          <Plot.Inequality
-            x={{ ">=": -100, "<=": 100 }}
-            y={{ ">=": () => -100, "<=": () => 100 }}
+          <Polygon
+            points={[[-5, -5], [-5, 5], [5, 5], [5, -5]]}
             color={Theme.red}
+            fillOpacity={0.15}
           />
         )}
 
